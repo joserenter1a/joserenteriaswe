@@ -1,0 +1,5 @@
+site_name: Jose Renteria
+nav:
+  - About Me: index.md
+  - Projects: projects/projects.md 
+  - Resume: resume/resume.md
