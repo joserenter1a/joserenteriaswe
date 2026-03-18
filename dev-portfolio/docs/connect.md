@@ -1,0 +1,3 @@
+- [LinkedIn](https://www.linkedin.com/in/joserenter1a/)
+- [Github](https://github.com/joserenter1a)
+- joserenteriaswe@gmail.com

@@ -1,5 +1,14 @@
 site_name: Jose Renteria
+home: projects/projects.md
 nav:
   - About Me: index.md
-  - Projects: projects/projects.md 
+  - Current Projects: projects/projects.md 
   - Resume: resume/resume.md
+  - Let's Connect: connect.md
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: slate
+      primary: deep purple
+      accent: indigo
