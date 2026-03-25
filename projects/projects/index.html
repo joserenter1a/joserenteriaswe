@@ -327,6 +327,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#wip-freezeframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WIP: freezeFrame
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#wip-jrlytics" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -448,6 +459,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#wip-freezeframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WIP: freezeFrame
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#wip-jrlytics" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -520,6 +542,42 @@
 </td>
 </tr></table>
 
+<h2 id="wip-freezeframe">WIP: freezeFrame</h2>
+<p>Immutable, schema-typed DataFrames backed by Apache Arrow.</p>
+<p><code>freezeFrame</code> is a Python 3.13+ DataFrame library for production data pipelines where correctness matters. Unlike Pandas, which is mutable by default and schema-opaque, a <code>FrozenFrame</code> enforces immutability at the storage layer, validates schemas at construction time, and exposes typed column access that works with static analysis tools out of the box.</p>
+<ul>
+<li>
+<p><a href="https://joserenter1a.github.io/freezeFrame/">Documentation</a></p>
+</li>
+<li>
+<p><a href="https://github.com/joserenter1a/freezeFrame">Github Repository</a></p>
+</li>
+</ul>
+<pre><code class="language-python">from freezeframe import FrozenFrame
+
+class UserMetrics(FrozenFrame):
+    user_id: int
+    name:    str
+    score:   float
+    active:  bool | None  # nullable — explicit opt-in via union with None
+
+df = UserMetrics.from_dict({
+    &quot;user_id&quot;: [1, 2, 3],
+    &quot;name&quot;:    [&quot;alice&quot;, &quot;bob&quot;, &quot;carol&quot;],
+    &quot;score&quot;:   [9.1, 7.4, 8.8],
+    &quot;active&quot;:  [True, False, None],
+})
+
+df.score          # -&gt; FrozenSeries[float]  (IDE-completable, type-checked)
+df[&quot;score&quot;]       # -&gt; FrozenSeries[float]
+
+df[&quot;score&quot;] = []  # raises FrozenFrameError — mutations are not possible
+
+top = df.filter(df.score &gt; 8.0)   # -&gt; UserMetrics (same schema, new frame)
+ids = df.select(&quot;user_id&quot;, &quot;score&quot;)  # -&gt; FrozenFrame (schema-altering)
+
+cache = {df: result}   # works — FrozenFrame is hashable
+</code></pre>
 <h2 id="wip-jrlytics">WIP: JrLytics</h2>
 <ul>
 <li>A mini OLAP database engine built in Python. JrLytics implements segment-based columnar storage with metadata-driven query optimization on top of Apache DataFusion.</li>
